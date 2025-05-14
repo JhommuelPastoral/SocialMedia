@@ -49,9 +49,11 @@ export default function OnboradingPage() {
   };
   return (
     <div className="bg-base-300 md:bg-base-100 max-w-[600px] min-h-screen mx-auto flex justify-center items-center font-Poppins">
-      <div className="bg-base-300  p-6 md:p-10 rounded-lg">
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full">
-          <div className='flex flex-col items-center space-y-3'>
+      <div className="bg-base-300  p-6 md:p-10 rounded-lg items-center flex flex-col w-full">
+        <p className='text-2xl font-semibold'>Create Your Profile</p>
+        <p className='text-sm text'>Fill in your information to get started</p>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full mt-2.5">
+          <div className='flex flex-col items-center space-y-3 w-full'>
             <p>Profile Picture</p>
             <div className="avatar">
               <div className="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
@@ -66,15 +68,15 @@ export default function OnboradingPage() {
               type="file"
               accept="image/*"
               onChange={handleFileChange}
-              className="file-input file-input-bordered w-full max-w-xs"
+              className="file-input file-input-bordered w-full "
             />
 
           </div>
-          <div className='flex flex-col items-start justify-start space-y-3'>
+          <div className='flex flex-col items-start justify-start space-y-3 w-full'>
             <p className='text-left text-sm'>Full Name</p>
-            <input type="text" value={onboardingData.fullname} onChange={(e) => setOnboardingData({ ...onboardingData, fullname: e.target.value })} placeholder="Full Name" className="input" />
+            <input type="text" className="w-full input" value={onboardingData.fullname} onChange={(e) => setOnboardingData({ ...onboardingData, fullname: e.target.value })} placeholder="Full Name"  />
             <p className='text-left text-sm'>Bio (Max 300 letters) </p>
-            <textarea className="textarea resize-none" placeholder="Bio" maxLength={300} value={onboardingData.bio} onChange={(e) => setOnboardingData({ ...onboardingData, bio: e.target.value })} > </textarea>
+            <textarea className="textarea resize-none w-full" placeholder="Tell us about yourself" maxLength={300} value={onboardingData.bio} onChange={(e) => setOnboardingData({ ...onboardingData, bio: e.target.value })} > </textarea>
           </div>
           <button className='btn btn-primary'> Submit </button>
 

@@ -4,8 +4,8 @@ export default function HomePage() {
   const {authData} = useAuthUser();
 
   return (
-    <div>
-
+    <div className='w-full h-[2000px]'>
+      padsasd
     </div>
   )
 }
