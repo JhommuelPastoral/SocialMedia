@@ -7,7 +7,7 @@ const authRoutes = (io) => {
     
   router.post('/login', (req,res)=> login(req,res));
   router.post('/signup', (req,res) => signup (req,res));
-  router.post('/logout',(req,res) => logout(req,res));
+  router.post('/logout',(req,res) => logout(req,res, io));
   router.post('/onboarding', protectedRoute, (req,res)=> onboarding(req,res,io));
   router.get('/me', protectedRoute, (req,res) => {res.status(200).json({user: req.user})});
   return router;

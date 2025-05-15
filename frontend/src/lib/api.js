@@ -7,7 +7,7 @@ export const  getAuthUser = async ()=>{
     return response.data;
   } catch (error) {
     console.log("getAuthUser", error.message);
-    throw error.response.data.message;
+    return null
   }
 }
 
@@ -48,5 +48,70 @@ export const OnboardingData = async (onboardingData)=>{
   } catch (error) {
     console.log("OnboardingData", error.message);
     throw error.response.data.message;
+  }
+}
+
+export const logout = async ()=>{
+  try {
+    const response = await axiosInstance.post("/auth/logout");
+    return response.data;
+  } catch (error) {
+    throw  Error(error.response?.data?.message );
+  }
+}
+
+export const getOnlineUsers = async ()=>{
+  try {
+    const response = await axiosInstance.get("/user/getonline");
+    return response.data;
+  } catch (error) {
+    throw  Error(error.response?.data?.message );
+  }
+}
+
+export const addFriend = async (id)=>{
+  try {
+    const response = await axiosInstance.post(`/user/addfriend/${id}`);
+    return response.data;
+  } catch (error) {
+    console.log("addFriend Error:", error.message);
+    throw  Error(error.response?.data?.message );
+  }
+}
+
+export const getOutgoingFriendRequests = async ()=>{
+  try {
+    const response = await axiosInstance.get("/user/getOutgoingFriendRequests");
+    return response.data;
+  } catch (error) {
+    throw  Error(error.response?.data?.message );
+  }
+}
+
+
+export const getIncomingFriendRequests = async ()=>{
+  try {
+    const response = await axiosInstance.get("/user/getIncomingFriendRequests");
+    return response.data;
+  } catch (error) {
+    throw  Error(error.response?.data?.message );
+  }
+}
+
+export const acceptFriendRequest = async (id)=>{
+  try {
+    const response = await axiosInstance.post(`/user/acceptFriendRequest/${id}`);
+    return response.data;
+  } catch (error) {
+    throw  Error(error.response?.data?.message );
+  }
+}
+
+export const getFriends = async ()=>{
+  try {
+    const response = await axiosInstance.get("/user/getfriends");
+    return response.data;
+  } catch (error) {
+    throw  Error(error.response?.data?.message );
   }
 }

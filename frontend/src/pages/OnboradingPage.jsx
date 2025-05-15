@@ -4,9 +4,6 @@ import { OnboardingData } from '../lib/api.js';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 export default function OnboradingPage() {
-
-  
-  const [selectedFile, setSelectedFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const { authData } = useAuthUser();
   
@@ -16,7 +13,7 @@ export default function OnboradingPage() {
     profileImage: authData?.user?.profileImage || ""
   });
   const queryClient = useQueryClient();
-  const{mutate: onboardingMutation} = useMutation({
+  const{mutate: onboardingMutation, isLoading: isOnboardingLoading} = useMutation({
     mutationFn: OnboardingData,
     onSuccess: () => {
       toast.success('Onboarding successfully!');
@@ -32,7 +29,6 @@ export default function OnboradingPage() {
     const reader = new FileReader();
 
     reader.onloadend = () => {
-      setSelectedFile(reader.result); // base64
       setPreviewUrl(reader.result);   // update image preview
       setOnboardingData(prev => ({ ...prev, profileImage: reader.result }));
 
@@ -42,11 +38,11 @@ export default function OnboradingPage() {
       reader.readAsDataURL(file);
     }
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     onboardingMutation(onboardingData);
   };
+  const loading = true;
   return (
     <div className="bg-base-300 md:bg-base-100 max-w-[600px] min-h-screen mx-auto flex justify-center items-center font-Poppins">
       <div className="bg-base-300  p-6 md:p-10 rounded-lg items-center flex flex-col w-full">
@@ -78,7 +74,7 @@ export default function OnboradingPage() {
             <p className='text-left text-sm'>Bio (Max 300 letters) </p>
             <textarea className="textarea resize-none w-full" placeholder="Tell us about yourself" maxLength={300} value={onboardingData.bio} onChange={(e) => setOnboardingData({ ...onboardingData, bio: e.target.value })} > </textarea>
           </div>
-          <button className='btn btn-primary'> Submit </button>
+          <button className='btn btn-primary'> {isOnboardingLoading ? <span className="loading loading-spinner"></span> : "Submit"} </button>
 
 
         </form>

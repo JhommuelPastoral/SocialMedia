@@ -1,6 +1,7 @@
-import React from 'react'
 import SideBar from '../components/SideBar.jsx';
+import RightSideBar from '../components/RightSidebar.jsx';
 import DockerBar from '../components/DockerBar.jsx';
+
 export default function LayoutPage({children}) {
   return (
     <>
@@ -11,8 +12,10 @@ export default function LayoutPage({children}) {
         <main className="flex-1">
           {children}
         </main>
+        <div className="hidden lg:block sticky top-0 right-10 h-screen w-[300px]">
+          <RightSideBar />
+        </div>
       </div>
-
     </>
   )
 }

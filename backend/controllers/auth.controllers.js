@@ -1,6 +1,6 @@
 import User from "../models/User.js"
 import jwt from "jsonwebtoken";
-
+import cloudinary from "../config/cloud.js";
 
 export const signup =  async (req, res) => {
 
@@ -79,14 +79,19 @@ export const login = async (req, res) => {
 export const onboarding = async (req, res,io) => {
   try {
     const userID = req.user._id;
-    const {fullname, profileImage, bio } = req.body;
+    let {fullname, profileImage, bio } = req.body;
 
     if(!fullname || !bio) {
       return res.status(400).json({message: "All fields are required"});
     }
+    const uploadResult = await cloudinary.uploader.upload(profileImage, {
+      folder: "profile-images",
+    });
+
     if(!profileImage) {
       profileImage = "https://i.pinimg.com/736x/2c/47/d5/2c47d5dd5b532f83bb55c4cd6f5bd1ef.jpg"
     }
+    profileImage = uploadResult.secure_url;
     const updatedUser = await User.findByIdAndUpdate(userID, {fullname, profileImage, bio, isOnboarded: true}, {new: true});
     res.status(200).json({message: "User onboarded successfully", updatedUser});
     io.emit("recommendUser", updatedUser);
@@ -96,7 +101,8 @@ export const onboarding = async (req, res,io) => {
   }
 }
 
-export const logout = (req, res) => {
+export const logout = (req, res, io) => {
+  io.emit("user-disconnected");
   res.cookie("token","", {
     httpOnly: true,
     secure: true,

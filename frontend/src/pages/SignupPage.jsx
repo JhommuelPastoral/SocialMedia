@@ -6,18 +6,18 @@ import toast from 'react-hot-toast';
 import { useQueryClient } from '@tanstack/react-query';
 export default function SignupPage() {
   const queryClient = useQueryClient();
-  const [siginData, setSiginData] = useState({
+  const [signupData, setSignupData] = useState({
     fullname: "",
     email: "",
     password: "",
   });
 
-  const { mutate: siginMutation } = useMutation({
+  const { mutate: signupMutation, isLoading: isSignupLoading} = useMutation({
     mutationFn: signup,
     onSuccess: () => {
       toast.success('Signup successfully!');
       queryClient.invalidateQueries(["authUser"]);
-      setSiginData({ fullname: "", email: "", password: "" });
+      setSignupData({ fullname: "", email: "", password: "" });
     },
     onError: (error) => {
       toast.error(error)
@@ -26,7 +26,7 @@ export default function SignupPage() {
 
   const handleSubmit = (e) => { 
     e.preventDefault();
-    siginMutation(siginData)
+    signupMutation(signupData);
   }
   return (
     <div className="mx-auto max-w-[1000px] gap-4 h-screen flex justify-center items-center font-Poppins bg-base-300 md:bg-base-100">
@@ -64,8 +64,8 @@ export default function SignupPage() {
                   maxLength="30"
                   title="Only letters, numbers or dash"
                   className='w-full'
-                  value={siginData.fullname}
-                  onChange={(e) => setSiginData({ ...siginData, fullname: e.target.value })}
+                  value={signupData.fullname}
+                  onChange={(e) => setSignupData({ ...signupData, fullname: e.target.value })}
                 />
               </label>
               <p className="validator-hint hidden">Must be 3 to 30 characters
@@ -87,7 +87,7 @@ export default function SignupPage() {
                     <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
                   </g>
                 </svg>
-                <input value={siginData.email} type="email" placeholder="JohnDoe@gmail.com" onChange={(e) => setSiginData({ ...siginData, email: e.target.value })} required />
+                <input value={signupData.email} type="email" placeholder="JohnDoe@gmail.com" onChange={(e) => setSignupData({ ...signupData, email: e.target.value })} required />
               </label>
               <div className="validator-hint hidden">Enter valid email address</div>      
 
@@ -115,8 +115,8 @@ export default function SignupPage() {
                   placeholder="Password"
                   minLength="8"
                   pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
-                  value={siginData.password}
-                  onChange={(e) => setSiginData({ ...siginData, password: e.target.value })}
+                  value={signupData.password}
+                  onChange={(e) => setSignupData({ ...signupData, password: e.target.value })}
                   title="Must be more than 6 characters, including number, lowercase letter, uppercase letter"
                 />
               </label>
@@ -126,7 +126,7 @@ export default function SignupPage() {
               </p>
             </div>
 
-            <button className="btn btn-primary w-full" onClick={handleSubmit} >Sign Up</button>
+            <button className="btn btn-primary w-full" onClick={handleSubmit} >{isSignupLoading ? (<span className='loading loading-spinner'></span> ) : 'Sign Up'}</button>
 
           </form>
 
