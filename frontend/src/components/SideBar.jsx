@@ -103,7 +103,7 @@ export default function SideBar() {
   return (
     <aside className="h-full p-5 flex flex-col gap-6 rounded-r-2xl w-60">
       {/* Branding */}
-      <div className="text-xl font-bold tracking-tight text-primary">
+      <div className="text-xl font-bold tracking-tight ">
         <Link to="/home">LinkUp</Link>
       </div>
 

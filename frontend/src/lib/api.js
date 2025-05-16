@@ -115,3 +115,21 @@ export const getFriends = async ()=>{
     throw  Error(error.response?.data?.message );
   }
 }
+
+export const post = async (data)=>{
+  try {
+    const response = await axiosInstance.post("/user/createpost",data);
+    return response.data;
+  } catch (error) {
+    throw  Error(error.response?.data?.message );
+  }
+}
+
+export const getPosts = async ()=>{
+  try {
+    const response = await axiosInstance.get("/user/getposts");
+    return response.data;
+  } catch (error) {
+    throw  Error(error.response?.data?.message );
+  }
+}

@@ -1,6 +1,6 @@
 import User from "../models/User.js";
 import FriendRequest from "../models/friendRequest.js";
-
+import Post from '../models/Post.js';
 export const getRecommendedFriends = async (req,res) => {
   try {
     const currentUserId = req.user._id;
@@ -112,3 +112,4 @@ export const getIncomingFriendRequests = async (req,res) => {
     console.log("getIncomingFriendRequests", error.message);
   }
 }
+

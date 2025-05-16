@@ -1,10 +1,19 @@
-import React from 'react'
-import useAuthUser from '../hooks/useAuthUser.js'
-
+import PostCard from '../components/PostCard.jsx';
+import CreatePost from '../components/CreatePost.jsx';
 export default function HomePage() {
-  const {authData} = useAuthUser();
+
+
   return (
-    <div className='w-[800px] mx-auto h-[2000px] bg-base-200'>
+    <div className='max-w-[800px] mx-auto min-h-screen space-y-5 p-5 font-Poppins'>
+      <CreatePost />
+      {/* My Day */}
+      <div className='w-full h-[80px] border items-center flex justify-center skeleton'>
+        <p>Still Working On Myday Features</p>
+      </div>
+
+      <div className='max-w-[600px] mx-auto '>
+        <PostCard />
+      </div>
     </div>
   )
 }
